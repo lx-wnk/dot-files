@@ -1,0 +1,17 @@
+{
+  "name": "hyper-plugins",
+  "description": "Auto-generated from `~/.hyper.js`!",
+  "private": true,
+  "version": "0.0.1",
+  "repository": "zeit/hyper",
+  "license": "MIT",
+  "homepage": "https://hyper.is",
+  "dependencies": {
+    "hyper-afterglow": "latest",
+    "hypercwd": "latest",
+    "hyper-search": "latest",
+    "hyper-pane": "latest",
+    "hyper-launch-menu": "latest",
+    "hyper-tabs-enhanced": "latest"
+  }
+}

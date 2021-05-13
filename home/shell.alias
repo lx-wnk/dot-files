@@ -1,0 +1,67 @@
+#alias for php provided by mamp
+for filename in /Applications/MAMP/bin/php/php*; do
+    PHP_VER=$(echo $(basename $filename) | sed 's/\.[^.]*$//' | sed 's/\.[a-z.]*//g')
+    PECL_VER=$(echo "${PHP_VER/php/pecl}")
+    ln -sfn "${filename}/bin/php" "/usr/local/bin/${PHP_VER}"
+    ln -sfn "${filename}/bin/pecl" "/usr/local/bin/${PECL_VER}"
+done
+ln -sfn /usr/local/bin/php74 /usr/local/bin/php
+ln -sfn /usr/local/bin/pecl72 /usr/local/bin/pecl
+
+#python version
+alias python="python3"
+alias pip="pip3"
+
+#mysql
+alias mysql="/Applications/MAMP/Library/bin/mysql"
+
+#updates
+alias updateAllBrew="brew update | true && brew upgrade"
+alias updateAllPip="sudo pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U"
+alias updateAllNpm="npm update -g"
+alias updateAllComposer="composer global update"
+alias updateAllGem="sudo gem update"
+alias updateAll="updateAllGem && updateAllBrew && updateAllComposer && updateAllNpm"
+
+#git
+#git config --global alias.co checkout
+#git config --global alias.br branch
+#git config --global alias.ci commit
+#git config --global alias.st status
+alias rebaseLatest="git add . && git commit -m 'TO_REBASE' && git rebase -i HEAD~2"
+alias gpf="gp --force"
+alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop)" | xargs git branch -d'
+
+#etc
+alias portListen="netstat -ap tcp | grep -i 'listen'"
+alias openMamp="open -a MAMP\ PRO"
+alias openPHPStorm="open -a PHPStorm"
+alias openBrave="open -a Brave\ Browser"
+alias openNotes="open -a Notes"
+alias openRamBox="open -a Rambox"
+alias openSpotify="open -a Spotify"
+alias openMail="open -a Mail"
+alias rememberMe='ssh-add -t 6h'
+alias privatOvh="ssh aw@54.37.73.177"
+#alias ls="exa -alFB --git"
+alias gourceNicer="gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 2 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling --max-user-speed 100 --file-extensions --highlight-users --dir-colour cccccc"
+
+# environment fixes
+alias gem=/usr/local/opt/ruby/bin/gem
+alias ruby=/usr/local/opt/ruby/bin/ruby
+#if which ruby >/dev/null && which gem >/dev/null; then
+#  export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+#fi
+
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export PATH="$HOME/.symfony/bin:$PATH"
+export PATH="/Applications/MAMP/Library/bin/mysql:$PATH"
+export PATH="/usr/local/opt/node@12/bin:$PATH"
+#export PATH="/usr/local/opt/node@14/bin:$PATH"
+export PATH=/Applications/MAMP/Library/bin:$PATH
+export PATH=/usr/local/bin/php:$PATH
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+# composoer
+alias composer="php /usr/local/bin/composer"
+export COMPOSER_HOME=$HOME/.composer

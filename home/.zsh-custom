@@ -1,0 +1,6 @@
+source ~/shell.alias
+source ~/remote_server.list
+
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
+setopt rmstarsilent
