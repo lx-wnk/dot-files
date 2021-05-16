@@ -3,3 +3,5 @@ htop
 act
 powerlevel10k
 yarn
+pgcli
+gitlab-runner
