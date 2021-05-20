@@ -21,7 +21,7 @@ alias updateAllPip="sudo pip3 list --outdated --format=freeze | grep -v '^\-e' |
 alias updateAllNpm="npm update -g"
 alias updateAllComposer="composer global update"
 alias updateAllGem="sudo gem update"
-alias updateAll="updateAllGem && updateAllBrew && updateAllComposer && updateAllNpm"
+alias updateAll="updateAllGem; updateAllBrew; updateAllComposer; updateAllNpm"
 
 #git
 #git config --global alias.co checkout
@@ -32,18 +32,10 @@ alias rebaseLatest="git add . && git commit -m 'TO_REBASE' && git rebase -i HEAD
 alias gpf="gp --force"
 alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop)" | xargs git branch -d'
 
-#etc
+# etc
+alias gitlab-exec="gitlab-runner exec docker"
 alias portListen="netstat -ap tcp | grep -i 'listen'"
-alias openMamp="open -a MAMP\ PRO"
-alias openPHPStorm="open -a PHPStorm"
-alias openBrave="open -a Brave\ Browser"
-alias openNotes="open -a Notes"
-alias openRamBox="open -a Rambox"
-alias openSpotify="open -a Spotify"
-alias openMail="open -a Mail"
 alias rememberMe='ssh-add -t 6h'
-alias privatOvh="ssh aw@54.37.73.177"
-#alias ls="exa -alFB --git"
 alias gourceNicer="gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 2 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling --max-user-speed 100 --file-extensions --highlight-users --dir-colour cccccc"
 
 # environment fixes
@@ -53,6 +45,7 @@ alias ruby=/usr/local/opt/ruby/bin/ruby
 #  export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 #fi
 
+# PATH adjustments
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export PATH="$HOME/.symfony/bin:$PATH"
 export PATH="/Applications/MAMP/Library/bin/mysql:$PATH"
@@ -62,6 +55,6 @@ export PATH=/Applications/MAMP/Library/bin:$PATH
 export PATH=/usr/local/bin/php:$PATH
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
-# composoer
+# composer
 alias composer="php /usr/local/bin/composer"
 export COMPOSER_HOME=$HOME/.composer
