@@ -47,6 +47,7 @@ alias ruby=/usr/local/opt/ruby/bin/ruby
 
 # PATH adjustments
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="$HOME/.symfony/bin:$PATH"
 export PATH="/Applications/MAMP/Library/bin/mysql:$PATH"
 export PATH="/usr/local/opt/node@12/bin:$PATH"
@@ -54,6 +55,7 @@ export PATH="/usr/local/opt/node@12/bin:$PATH"
 export PATH=/Applications/MAMP/Library/bin:$PATH
 export PATH=/usr/local/bin/php:$PATH
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+export PATH="$HOME/Library/Python/3.9/bin/:$PATH"
 
 # composer
 alias composer="php /usr/local/bin/composer"
