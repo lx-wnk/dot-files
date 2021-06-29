@@ -5,3 +5,4 @@ powerlevel10k
 yarn
 pgcli
 gitlab-runner
+fswatch
