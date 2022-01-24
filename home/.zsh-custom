@@ -1,7 +1,19 @@
 source ~/shell.alias
 source ~/remote_server.list
 
+ZSH_THEME="powerlevel10k/powerlevel10k"
 bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 setopt rmstarsilent
-export LC_ALL=en_DE.UTF-8
+
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="$HOME/.symfony/bin:$PATH"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+export PATH="/usr/local/opt/node@12/bin:$PATH"
+#export PATH="/usr/local/opt/node@14/bin:$PATH"
+
+export PATH=/usr/local/bin/php:$PATH
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+export PATH="$HOME/Library/Python/3.9/bin/:$PATH"
+export PATH="$PATH:$HOME/scripts"
