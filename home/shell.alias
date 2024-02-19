@@ -1,19 +1,37 @@
-#alias for php provided by mamp
-for filename in /Applications/MAMP/bin/php/php*; do
+#########################
+## alias for php (mamp)
+#########################
+#for filename in /Applications/MAMP/bin/php/php*; do
+#    PHP_VER=$(echo $(basename $filename) | sed 's/\.[^.]*$//' | sed 's/\.[a-z.]*//g')
+#    PECL_VER=$(echo "${PHP_VER/php/pecl}")
+#    ln -sfn "${filename}/bin/php" "/usr/local/bin/${PHP_VER}"
+#    ln -sfn "${filename}/bin/pecl" "/usr/local/bin/${PECL_VER}"
+#done
+
+## alias for php (brew)
+for filename in /usr/local/Cellar/php*/*; do
     PHP_VER=$(echo $(basename $filename) | sed 's/\.[^.]*$//' | sed 's/\.[a-z.]*//g')
     PECL_VER=$(echo "${PHP_VER/php/pecl}")
-    ln -sfn "${filename}/bin/php" "/usr/local/bin/${PHP_VER}"
-    ln -sfn "${filename}/bin/pecl" "/usr/local/bin/${PECL_VER}"
+    ln -sfn "${filename}/bin/php" "/usr/local/bin/php${PHP_VER}"
+    ln -sfn "${filename}/bin/pecl" "/usr/local/bin/pecl${PECL_VER}"
 done
-ln -sfn /usr/local/bin/php74 /usr/local/bin/php
-ln -sfn /usr/local/bin/pecl72 /usr/local/bin/pecl
+
+#symlink php
+if [[ ! -f /usr/local/bin/php ]]; then
+    ln -sfn /usr/local/bin/php81 /usr/local/bin/php
+fi
+
+#symlink pecl
+if [[ ! -f /usr/local/bin/pecl ]]; then
+    ln -sfn /usr/local/bin/pecl81 /usr/local/bin/pecl
+fi
 
 #python version
 alias python="python3"
 alias pip="pip3"
 
 #mysql
-alias mysql="/Applications/MAMP/Library/bin/mysql"
+#alias mysql="/Applications/MAMP/Library/bin/mysql"
 
 #updates
 alias updateAllBrew="brew update | true && brew upgrade"
@@ -21,7 +39,13 @@ alias updateAllPip="sudo pip3 list --outdated --format=freeze | grep -v '^\-e' |
 alias updateAllNpm="npm update -g"
 alias updateAllComposer="composer global update"
 alias updateAllGem="sudo gem update"
-alias updateAll="updateAllGem; updateAllBrew; updateAllComposer; updateAllNpm"
+alias updateAll="updateAllGem && updateAllBrew && updateAllComposer && updateAllNpm"
+
+# cleanup
+## docker
+alias cleanupContainer="docker container ls -a | grep 'months ago' | awk '{print $1}' | xargs docker container rm"
+alias cleanupImages="docker images | grep 'months ago' | awk '{print $3}' | xargs docker rmi"
+
 
 #git
 #git config --global alias.co checkout
@@ -29,34 +53,22 @@ alias updateAll="updateAllGem; updateAllBrew; updateAllComposer; updateAllNpm"
 #git config --global alias.ci commit
 #git config --global alias.st status
 alias rebaseLatest="git add . && git commit -m 'TO_REBASE' && git rebase -i HEAD~2"
-alias gpf="gp --force"
-alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop)" | xargs git branch -d'
-
-# etc
-alias gitlab-exec="gitlab-runner exec docker"
-alias portListen="netstat -ap tcp | grep -i 'listen'"
-alias rememberMe='ssh-add -t 6h'
-alias gourceNicer="gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 2 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling --max-user-speed 100 --file-extensions --highlight-users --dir-colour cccccc"
+alias gpf="gp --force-with-lease"
+alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop|main|trunk)" | xargs git branch -d'
 
 # environment fixes
 alias gem=/usr/local/opt/ruby/bin/gem
 alias ruby=/usr/local/opt/ruby/bin/ruby
-#if which ruby >/dev/null && which gem >/dev/null; then
-#  export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-#fi
-
-# PATH adjustments
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export PATH="$HOME/.symfony/bin:$PATH"
-export PATH="/Applications/MAMP/Library/bin/mysql:$PATH"
-export PATH="/usr/local/opt/node@12/bin:$PATH"
-#export PATH="/usr/local/opt/node@14/bin:$PATH"
-export PATH=/Applications/MAMP/Library/bin:$PATH
-export PATH=/usr/local/bin/php:$PATH
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-export PATH="$HOME/Library/Python/3.9/bin/:$PATH"
 
 # composer
 alias composer="php /usr/local/bin/composer"
 export COMPOSER_HOME=$HOME/.composer
+
+#etc
+alias brave="open -na /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
+alias portListen="netstat -ap tcp | grep -i 'listen'"
+#alias ls="exa -alFB --git"
+alias lexa="exa -labF --color auto --git"
+alias gourceNicer="gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 2 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling --max-user-speed 100 --file-extensions --highlight-users --dir-colour cccccc"
+alias rememberMe='ssh-add -t 6h'

@@ -11,8 +11,7 @@ mv ~/.symfony/bin/symfony /usr/local/bin/
 bash ./mac/init-brew.sh
 bash ./mac/init-npm.sh
 bash ./mac/init-pip.sh
+bash ./mac/init-custom-stuff.sh
+
+# finish
 ln -sfn home/* ~
-# install composer
-curl https://getcomposer.org/download/2.0.13/composer.phar -o /usr/local/bin/composer
-chmod +x /usr/local/bin/composer
-# TODO: add zsh installation
