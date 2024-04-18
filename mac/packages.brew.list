@@ -1,18 +1,15 @@
-node@14
-node@16
-node@18
 htop
 act
+zsh
 powerlevel10k
+zsh-autosuggestions
+zsh-syntax-highlighting
+fzf
 yarn
 pgcli
 gitlab-runner
 fswatch
 dnsmasq
-php@7.3
-php@7.4
-php@8.0
-php@8.1
-php
-zsh
-powerlevel10k
+pyenv
+docker
+exa gource

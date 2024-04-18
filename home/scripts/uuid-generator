@@ -1,12 +1,11 @@
 #!/usr/bin/env php
 <?php declare(strict_types = 1);
 
-
 class CustomUuidGenerator
 {
-    private const VALID_PATTERN = '^[0-9a-f]{32}$';
-
-
+    /**
+     * @throws \Random\RandomException
+     */
     public function randomHex(): string
     {
         $hex        = bin2hex(random_bytes(16));

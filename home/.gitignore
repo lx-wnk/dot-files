@@ -1,6 +1,8 @@
 *
 !/.hyper.js
 !/.vimrc
-!/.zsh-custom
 !/.zshrc
-!shell.alias
+!/.zsh-custom.zsh
+!shell.alias.sh
+!/scripts
+!/scripts/*

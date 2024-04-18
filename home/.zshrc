@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/awink/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -77,22 +77,21 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  bundler
-#  dotenv
-  macos
-  rake
-  rbenv
-  ruby
-  colored-man-pages
-  command-not-found
-  colorize
-  safe-paste
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  history
-)
+# plugins=(
+#   git
+#   bundler
+# #  dotenv
+#   macos
+#   rake
+#   rbenv
+#   ruby
+#   colored-man-pages
+#   command-not-found
+#   colorize
+#   safe-paste
+#   zsh-autosuggestions
+#   zsh-syntax-highlighting
+# )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -122,16 +121,17 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source ~/.zsh-custom
-source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
-#source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+###############
+#### CUSTOM ###
+###############
+
+source ~/.zsh-custom.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# BEGIN SNIPPET: Platform.sh CLI configuration
-HOME=${HOME:-'/Users/awink'}
-export PATH="$HOME/"'.platformsh/bin':"$PATH"
-if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
-
 eval "$(atuin init zsh)"
+
+###############
+## ENDCUSTOM ##
+###############
