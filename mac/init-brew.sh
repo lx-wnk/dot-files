@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
 
 BREW_PACKAGES=$(cat mac/packages.brew.list)
+
+#taps
+brew tap homebrew/cask-versions
+
+# install main packages
 brew install $BREW_PACKAGES
 brew link --force libpq
+
+
+#################
+# Install casks #
+#################
 
 # Install DDEV @see https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/
 brew install ddev/ddev/ddev
@@ -19,8 +29,9 @@ brew install --cask hyper
 brew install --cask spotify
 
 # install code editors
-brew install --cask phpstorm
 brew install --cask visual-studio-code
+#brew install --cask phpstorm # due to broken 2024.1 version, I installed the latest 2023
+brew install --cask https://raw.githubusercontent.com/Homebrew/homebrew-cask/5b134dfb0249181b8a4a345b1776a23d05eb8377/Casks/p/phpstorm.r
 
 # install zoom
 brew install --cask zoom
