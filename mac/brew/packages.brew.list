@@ -12,4 +12,4 @@ fswatch
 dnsmasq
 pyenv
 docker
-exa gource
+gource
