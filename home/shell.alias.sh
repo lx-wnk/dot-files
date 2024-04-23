@@ -56,6 +56,8 @@ alias dockerKillContainers"docker kill $(docker ps -aq)"
 alias gp="git push"
 alias gpf="gp --force-with-lease"
 alias gfa="git fetch --all"
+alias ga="git add"
+alias gc="git commit"
 # delete all merged branches
 alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop|main|trunk)" | xargs git branch -d'
 # visual representation of a git repository

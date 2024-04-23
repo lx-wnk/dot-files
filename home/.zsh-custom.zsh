@@ -40,3 +40,4 @@ fi
 #hooks
 eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"
+eval "$(thefuck --alias)"
