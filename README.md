@@ -1,5 +1,5 @@
 # Dot files
-A (Sometimes when I think about it) updated summary and script library for the setup of a mac.
+A (Sometimes when I think about it) updated summary and script library for the setup of my mac.
 
 It'll install most used programms for developers, add some configuration for `zsh` and other quality of life improvements
 

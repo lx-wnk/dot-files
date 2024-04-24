@@ -45,6 +45,9 @@ brew install --cask deepl
 # docker desktop
 brew install --cask docker
 
+#screen recording software
+brew install --cask kap
+
 # browser
 ## arc browser
 brew install --cask arc
