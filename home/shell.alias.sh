@@ -46,7 +46,7 @@ alias updateAll="updateAllBrew; updateAllPip; updateAllGem; updateAllComposer; u
 ## docker
 alias dockerCleanupContainer="docker container ls -a | grep 'months ago' | awk '{print $1}' | xargs docker container rm"
 alias dockerCleanupImages="docker images | grep 'months ago' | awk '{print $3}' | xargs docker rmi"
-alias dockerKillContainers"docker kill $(docker ps -aq)"
+alias dockerKillContainers="docker kill $(docker ps -aq)"
 
 #git
 #git config --global alias.co checkout
@@ -80,3 +80,4 @@ alias portListen="netstat -ap tcp | grep -i 'listen'"
 #alias lexa="exa -labF --color auto --git"
 # ask for priv-key password every 6h
 alias rememberMe='ssh-add -t 6h'
+alias currentDockerForceRestart='docker kill $(docker ps -aq) && docker-compose up -d'
