@@ -38,6 +38,8 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 
 #hooks
-source "$(direnv hook zsh)"
+## evals
+eval "$(direnv hook zsh)"
+eval "$(thefuck --alias)"
+## source
 source <(fzf --zsh)
-source "$(thefuck --alias)"

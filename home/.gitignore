@@ -3,6 +3,8 @@
 !/.vimrc
 !/.zshrc
 !/.zsh-custom.zsh
-!shell.alias.sh
+!/shell.alias.sh
+!/.p10k.zsh
+
 !/scripts
 !/scripts/*
