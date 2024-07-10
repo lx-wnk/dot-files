@@ -19,8 +19,7 @@ brew install --cask spotify
 
 # install code editors
 brew install --cask visual-studio-code
-#brew install --cask phpstorm # due to broken 2024.1 version, I installed the latest 2023
-brew install --cask https://raw.githubusercontent.com/Homebrew/homebrew-cask/5b134dfb0249181b8a4a345b1776a23d05eb8377/Casks/p/phpstorm.rb
+brew install --cask phpstorm
 
 # install zoom
 brew install --cask zoom
@@ -53,3 +52,6 @@ brew install --cask kap
 brew install --cask arc
 ## brave browser
 brew install --cask brave-browser
+
+# logitech configurator for mx vertical
+#brew install --cask logi-options-plus # can currently not be installed

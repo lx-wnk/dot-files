@@ -145,7 +145,8 @@ module.exports = {
         "hyperline",
         "hyperlinks",
         "hyper-tabs-enhanced",
-        "hyper-dracula"
+        "hyper-dracula",
+        "hyper-broadcast"
     ],
     // in development, you can create a directory under
     // `~/.hyper_plugins/local/` and include it here

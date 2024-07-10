@@ -31,6 +31,7 @@ export PATH=/usr/local/bin/php:$PATH
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$HOME/Library/Python/3.9/bin/:$PATH"
 export PATH="$PATH:$HOME/scripts"
+export PATH="$PATH:/$HOME/.docker/cli-plugins"
 
 # nix shell
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
