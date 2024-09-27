@@ -7,7 +7,6 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Theme + plugins
-
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
    git

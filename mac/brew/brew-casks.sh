@@ -54,4 +54,4 @@ brew install --cask arc
 brew install --cask brave-browser
 
 # logitech configurator for mx vertical
-#brew install --cask logi-options-plus # can currently not be installed
+#brew install --cask logi-options+ # can currently not be installed
