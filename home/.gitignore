@@ -5,6 +5,7 @@
 !/.zsh-custom.zsh
 !/shell.alias.sh
 !/.p10k.zsh
+!/.gitconfig
 
 !/scripts
 !/scripts/*

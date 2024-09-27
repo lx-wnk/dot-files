@@ -1,0 +1,12 @@
+[user]
+    name = Alexander Wink
+    email = git@jinnoflife.com
+    signingkey = ~/.ssh/id_rsa.pub
+[includeIf "gitdir:~/code/_work/"]
+    path = ~/code/_work/.gitconfig
+[pull]
+    rebase = false
+[commit]
+    gpgsign = true
+[gpg]
+    format = ssh

@@ -23,3 +23,7 @@ ln -sfn $(pwd)/home/.vimrc ~
 ln -sfn ~/.hyper.js ~/Library/Application\ Support/Hyper/.hyper.js
 ln -sfn ~/.hyper_plugins ~/Library/Application\ Support/Hyper/.hyper_plugins
 cd ~/.hyper_plugins && npm i
+
+# init folders
+mkdir -p ~/code/_privat
+mkdir -p ~/code/_work
