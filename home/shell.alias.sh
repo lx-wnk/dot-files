@@ -1,35 +1,3 @@
-#########################
-## alias for php (mamp)
-#########################
-#for filename in /Applications/MAMP/bin/php/php*; do
-#    PHP_VER=$(echo $(basename $filename) | sed 's/\.[^.]*$//' | sed 's/\.[a-z.]*//g')
-#    PECL_VER=$(echo "${PHP_VER/php/pecl}")
-#    ln -sfn "${filename}/bin/php" "/usr/local/bin/${PHP_VER}"
-#    ln -sfn "${filename}/bin/pecl" "/usr/local/bin/${PECL_VER}"
-#done
-
-#########################
-## alias for php (brew)
-#########################
-#for filename in /usr/local/Cellar/php*/*; do
-#    PHP_VER=$(echo $(basename $filename) | sed 's/\.[^.]*$//' | sed 's/\.[a-z.]*//g')
-#    PECL_VER=$(echo "${PHP_VER/php/pecl}")
-#    ln -sfn "${filename}/bin/php" "/usr/local/bin/php${PHP_VER}"
-#    ln -sfn "${filename}/bin/pecl" "/usr/local/bin/pecl${PECL_VER}"
-#done
-
-#########################
-## alias for main php version
-#########################
-#if [[ ! -f /usr/local/bin/php ]]; then
-#    ln -sfn /usr/local/bin/php81 /usr/local/bin/php
-#fi
-
-#symlink pecl
-if [[ ! -f /usr/local/bin/pecl ]]; then
-    ln -sfn /usr/local/bin/pecl81 /usr/local/bin/pecl
-fi
-
 #python version
 alias python="python3"
 alias pip="pip3"
@@ -48,16 +16,14 @@ alias dockerCleanupContainer="docker container ls -a | grep 'months ago' | awk '
 alias dockerCleanupImages="docker images | grep 'months ago' | awk '{print $3}' | xargs docker rmi"
 alias dockerKillContainers="docker kill $(docker ps -aq)"
 
-#git
-#git config --global alias.co checkout
-#git config --global alias.br branch
-#git config --global alias.ci commit
-#git config --global alias.st status
-alias gp="git push"
-alias gpf="gp --force-with-lease"
-alias gfa="git fetch --all"
-alias ga="git add"
-alias gc="git commit"
+#git @see: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+#alias gp="git push"
+#alias gpf="gp --force-with-lease"
+alias gpd="git push dasistweb"
+alias gpo="git push origin"
+#alias gfa="git fetch --all"
+#alias ga="git add"
+#alias gc="git commit"
 # delete all merged branches
 alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop|main|trunk)" | xargs git branch -d'
 # visual representation of a git repository

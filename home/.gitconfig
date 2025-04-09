@@ -1,12 +1,14 @@
 [user]
-    name = Alexander Wink
+	name = Alexander Wink
     email = git@jinnoflife.com
-    signingkey = ~/.ssh/id_rsa.pub
+	signingkey = ~/.ssh/id_rsa.pub
 [includeIf "gitdir:~/code/_work/"]
     path = ~/code/_work/.gitconfig
+	email = alexander.wink@dasistweb.de
 [pull]
     rebase = false
 [commit]
-    gpgsign = true
+	gpgsign = true
 [gpg]
-    format = ssh
+	program = /opt/homebrew/bin/gpg
+	format = ssh

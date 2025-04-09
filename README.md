@@ -11,16 +11,17 @@ What are they for me?
 * Helper for needed programms to daily work with
 
 ## What does it do (exactly)
-* Packages via [brew](mac/brew/packages.brew.list) and [brew](mac/brew/brew-casks.sh)
-* Packages via [npm](mac/packages.npm.list)
-* Packages via [pip](mac/packages.pip.list)
+* Install packages via 
+  * [brew](mac/brew/packages.brew.list) and [brew](mac/brew/brew-casks.sh)
+  * [npm](mac/packages.npm.list)
+  * [pip](mac/packages.pip.list)
 * Development environments (nix, devenv, docker)
-* Configure shell 
+* Configure shell
   * For [zsh](./home/.zsh-custom.zsh)
-  * For usage with [hyper](https://hyper.is/)
-  * Add shell [aliases](./home/shell.alias.sh)
+  * For usage with [warp](https://github.com/warpdotdev/Warp)
+  * Add custom shell [aliases](./home/shell.alias.sh)
 
 ## Contribution
 You are free to fork, improve and optimize the current state. But keep in mind that this is for my personal use (so maybe add a few switches to prevent the installation of tools that not everyone needs).
 
-Nevertheless, I would be grateful for contributions and feedback.
+Nevertheless, I would be grateful for contributions **and feedback**.

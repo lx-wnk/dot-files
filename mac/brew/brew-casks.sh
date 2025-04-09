@@ -11,11 +11,14 @@ mkcert -install
 # install mail client from https://sparkmailapp.com/download (v3)
 #brew install --cask readdle-spark
 
-# install shell from https://github.com/vercel/hyper
-brew install --cask hyper
+## Shell
+# install shell from https://github.com/vercel/hyper - is outdated and not updated anymore
+#brew install --cask hyper
+# install shell from https://github.com/warpdotdev/Warp
+brew install --cask warp
 
 # install spotify
-brew install --cask spotify
+#brew install --cask spotify # we don't install via brew due to apples regulations against unverified developers
 
 # install code editors
 brew install --cask visual-studio-code
