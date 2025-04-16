@@ -2,7 +2,6 @@
 
 # atuin
 bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
-eval "$(atuin init zsh --disable-up-arrow)"
 
 # install composer
 curl https://getcomposer.org/download/latest-stable/composer.phar -o /usr/local/bin/composer

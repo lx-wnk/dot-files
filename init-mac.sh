@@ -16,6 +16,7 @@ bash ./mac/init-custom-stuff.sh
 # finish
 ln -sfn $(pwd)/home/* ~
 ln -sfn $(pwd)/home/.zsh* ~
+ln -sfn $(pwd)/home/.p10k.zsh ~
 ln -sfn $(pwd)/home/.hyper* ~
 ln -sfn $(pwd)/home/.vimrc ~
 
