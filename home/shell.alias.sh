@@ -16,17 +16,12 @@ alias dockerCleanupContainer="docker container ls -a | grep 'months ago' | awk '
 alias dockerCleanupImages="docker images | grep 'months ago' | awk '{print $3}' | xargs docker rmi"
 alias dockerKillContainers="docker kill $(docker ps -aq)"
 
-#git @see: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-#alias gp="git push"
-#alias gpf="gp --force-with-lease"
+# git @see: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 alias gpd="git push dasistweb"
 alias gpo="git push origin"
-#alias gfa="git fetch --all"
-#alias ga="git add"
-#alias gc="git commit"
-# delete all merged branches
+## delete all merged branches
 alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop|main|trunk)" | xargs git branch -d'
-# visual representation of a git repository
+## visual representation of a git repository
 alias gourceNicer="gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 2 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling --max-user-speed 100 --file-extensions --highlight-users --dir-colour cccccc"
 
 # environment fixes
@@ -47,3 +42,5 @@ alias portListen="netstat -ap tcp | grep -i 'listen'"
 # ask for priv-key password every 6h
 alias rememberMe='ssh-add -t 6h'
 alias currentDockerForceRestart='docker kill $(docker ps -aq) && docker-compose up -d'
+
+alias generateUuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '-'"
