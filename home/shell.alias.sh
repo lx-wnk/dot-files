@@ -43,4 +43,12 @@ alias portListen="netstat -ap tcp | grep -i 'listen'"
 alias rememberMe='ssh-add -t 6h'
 alias currentDockerForceRestart='docker kill $(docker ps -aq) && docker-compose up -d'
 
+# little helper
 alias generateUuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '-'"
+alias unixTimeStamp="date +%s"
+toLower() {
+    echo "$@" | tr '[:upper:]' '[:lower:]'
+}
+toUpper() {
+    echo "$@" | tr '[:lower:]' '[:upper:]'
+}
