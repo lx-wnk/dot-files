@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+source ~/.zshrc
+
 echo 'Starting MacOS Software upgrade'
 mas upgrade # app store updates
 
