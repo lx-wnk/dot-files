@@ -19,6 +19,7 @@ alias dockerKillContainers="docker kill $(docker ps -aq)"
 # git @see: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 alias gpd="git push dasistweb"
 alias gpo="git push origin"
+alias gcm="git checkout main"
 ## delete all merged branches
 alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop|main|trunk)" | xargs git branch -d'
 ## visual representation of a git repository
