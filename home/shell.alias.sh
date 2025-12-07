@@ -26,9 +26,9 @@ alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop|main|tru
 alias gourceNicer="gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 2 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling --max-user-speed 100 --file-extensions --highlight-users --dir-colour cccccc"
 
 # environment fixes
-alias gem=/usr/local/opt/ruby/bin/gem
-alias ruby=/usr/local/opt/ruby/bin/ruby
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+#alias gem=/usr/local/opt/ruby/bin/gem
+#alias ruby=/usr/local/opt/ruby/bin/ruby
+#export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 # composer
 alias composer="php /usr/local/bin/composer"

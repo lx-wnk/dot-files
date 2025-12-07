@@ -9,3 +9,7 @@
 
 !/scripts
 !/scripts/*
+
+!/.claude
+/.claude/*
+!/.claude/settings.json

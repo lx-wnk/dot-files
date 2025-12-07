@@ -13,12 +13,13 @@ bash ./mac/init-npm.sh
 bash ./mac/init-pip.sh
 bash ./mac/init-custom-stuff.sh
 
-# finish
-ln -sfn $(pwd)/home/* ~
-ln -sfn $(pwd)/home/.zsh* ~
-ln -sfn $(pwd)/home/.p10k.zsh ~
-ln -sfn $(pwd)/home/.hyper* ~
-ln -sfn $(pwd)/home/.vimrc ~
+# create symlinks
+ln -sfn $(pwd)/home/* ~/
+ln -sfn $(pwd)/home/.claude ~/.claude
+ln -sfn $(pwd)/home/.vimrc ~/.vimrc
+ln -sfn $(pwd)/home/.zsh* ~/.zsh*
+ln -sfn $(pwd)/home/.p10k.zsh ~/.p10k.zsh
+ln -sfn $(pwd)/home/.hyper* ~/.hyper*
 
 # init folders
 mkdir -p ~/code/_privat

@@ -12,3 +12,5 @@
 [gpg]
 	program = /opt/homebrew/bin/gpg
 	format = ssh
+[core]
+	autocrlf = input
