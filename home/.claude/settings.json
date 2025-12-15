@@ -4,6 +4,9 @@
   "permission": {
     "defaultMode": "plan",
     "disableBypassPermissionsMode": "disable",
+    "allow": [
+      "Read(~/code/)"
+    ],
     "deny": [
       "Read(./.env)",
       "Read(./.env.*)",
