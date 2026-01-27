@@ -15,6 +15,7 @@ alias updateAll="updateAllBrew; updateAllPip; updateAllGem; updateAllComposer; u
 alias dockerCleanupContainer="docker container ls -a | grep 'months ago' | awk '{print $1}' | xargs docker container rm"
 alias dockerCleanupImages="docker images | grep 'months ago' | awk '{print $3}' | xargs docker rmi"
 alias dockerKillContainers="docker kill $(docker ps -aq)"
+alias dockerStopAll="docker-stop-all.sh"
 
 # git @see: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 alias gpd="git push dasistweb"
