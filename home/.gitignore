@@ -1,4 +1,3 @@
-*
 !/.hyper.js
 !/.vimrc
 !/.zshrc
@@ -10,6 +9,13 @@
 !/scripts
 !/scripts/*
 
-!/.claude
+# CLAUDE
+!/.claude/
 /.claude/*
+# overall config
+!/.claude/CLAUDE.md
 !/.claude/settings.json
+# plugins
+!/.claude/plugins/config.json
+!/.claude/plugins/installed_plugins.json
+!/.claude/plugins/known_marketplaces.json

@@ -14,7 +14,8 @@ export PATH=/usr/local/bin/php:$PATH
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$HOME/Library/Python/3.9/bin/:$PATH"
 export PATH="$PATH:$HOME/scripts"
-export PATH="$PATH:/$HOME/.docker/cli-plugins"
+export PATH="$PATH:$HOME/.docker/cli-plugins"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
