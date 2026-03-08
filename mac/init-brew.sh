@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 BREW_PACKAGES=$(cat $(pwd)/mac/brew/packages.brew.list)
 

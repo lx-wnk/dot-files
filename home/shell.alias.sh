@@ -2,19 +2,11 @@
 alias python="python3"
 alias pip="pip3"
 
-#updates
-alias updateAllBrew="~/.scripts/brew-upgrade.sh"
-alias updateAllPip="sudo pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U"
-alias updateAllNpm="npm update -g"
-alias updateAllComposer="composer global update"
-alias updateAllGem="sudo gem update"
-alias updateAll="updateAllBrew; updateAllPip; updateAllGem; updateAllComposer; updateAllNpm"
-
 # cleanup
 ## docker
 alias dockerCleanupContainer="docker container ls -a | grep 'months ago' | awk '{print $1}' | xargs docker container rm"
 alias dockerCleanupImages="docker images | grep 'months ago' | awk '{print $3}' | xargs docker rmi"
-alias dockerKillContainers="docker kill $(docker ps -aq)"
+dockerKillContainers() { docker kill $(docker ps -aq); }
 alias dockerStopAll="docker-stop-all.sh"
 
 # git @see: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
@@ -38,12 +30,12 @@ export COMPOSER_HOME=$HOME/.composer
 #etc
 alias brave="open -na /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
 alias portListen="netstat -ap tcp | grep -i 'listen'"
-# EXA is currently not maintained
-#alias ls="exa -alFB --git"
-#alias lexa="exa -labF --color auto --git"
+# eza (maintained fork of exa)
+#alias ls="eza -alFB --git"
+#alias leza="eza -labF --color auto --git"
 # ask for priv-key password every 6h
 alias rememberMe='ssh-add -t 6h'
-alias currentDockerForceRestart='docker kill $(docker ps -aq) && docker-compose up -d'
+currentDockerForceRestart() { docker kill $(docker ps -aq) && docker-compose up -d; }
 
 # little helper
 alias generateUuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '-'"

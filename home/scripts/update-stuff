@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+
+source ~/.zshrc
+
+echo '###############################'
+echo '### Starting Homebrew upgrade #'
+echo '###############################'
+brew update -q && brew upgrade -q
+brew upgrade -q --casks $(brew list --casks)
+
+echo '###############################'
+echo '### Starting misc upgrades ####'
+echo '###############################'
+echo 'Updating Claude'
+claude update
+
+echo 'Updating Oh My Zsh'
+omz update
+
+echo 'Updating App Store apps'
+mas upgrade
+
+echo 'Starting npm upgrade'
+brew link node --overwrite # somehow node gets overwritten sometimes, so just in case
+npm update -g

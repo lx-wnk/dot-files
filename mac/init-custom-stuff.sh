@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # atuin
 bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)

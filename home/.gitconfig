@@ -4,13 +4,11 @@
 	signingkey = ~/.ssh/id_rsa.pub
 [includeIf "gitdir:~/code/_work/"]
     path = ~/code/_work/.gitconfig
-	email = alexander.wink@dasistweb.de
 [pull]
     rebase = false
 [commit]
 	gpgsign = true
 [gpg]
-	program = /opt/homebrew/bin/gpg
 	format = ssh
 [core]
 	autocrlf = input

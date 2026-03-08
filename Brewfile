@@ -1,0 +1,48 @@
+# Taps
+tap "homebrew/cask-versions"
+tap "ddev/ddev"
+tap "ferdium/ferdium"
+
+# Formulae
+brew "htop"
+brew "act"
+brew "zsh"
+brew "powerlevel10k"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
+brew "fzf"
+brew "yarn"
+brew "pgcli"
+brew "gitlab-runner"
+brew "fswatch"
+brew "dnsmasq"
+brew "pyenv"
+brew "docker"
+brew "gource"
+brew "thefuck"
+brew "mas"
+brew "ncdu"
+brew "pandoc"
+brew "gh"
+brew "jq"
+brew "direnv"
+brew "libpq", link: true
+
+# Casks
+cask "warp"
+cask "visual-studio-code"
+cask "phpstorm"
+cask "zoom"
+cask "slack"
+cask "discord"
+cask "flycut"
+cask "rectangle"
+cask "deepl"
+cask "docker"
+cask "kap"
+cask "arc"
+cask "brave-browser"
+
+# Formulae (via tap)
+brew "ddev/ddev/ddev"
+brew "ferdium/ferdium/ferdium"
