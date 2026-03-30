@@ -21,6 +21,14 @@ ln -sfn $(pwd)/home/.zsh* ~/.zsh*
 ln -sfn $(pwd)/home/.p10k.zsh ~/.p10k.zsh
 ln -sfn $(pwd)/home/.hyper* ~/.hyper*
 
+# create symlinks for .config
+mkdir -p ~/.config # make sure .config exists
+for src in $(pwd)/home/.config/*/; do
+  name=$(basename "$src")
+  rm -rf ~/.config/"$name"
+  ln -sfn "$src" ~/.config/"$name"
+done
+
 # init folders
 mkdir -p ~/code/_privat
 mkdir -p ~/code/_work

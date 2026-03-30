@@ -1,0 +1,18 @@
+auto-update = check
+shell-integration = zsh
+
+#theme = Dark Modern
+theme = Desert
+bold-is-bright = true
+
+split-divider-color = #1b5c3f
+background-opacity = 0.85
+background-blur=16
+
+
+
+notify-on-command-finish = unfocused
+
+macos-option-as-alt = left
+
+window-save-state = always

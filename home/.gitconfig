@@ -3,7 +3,7 @@
     email = git@jinnoflife.com
 	signingkey = ~/.ssh/id_rsa.pub
 [includeIf "gitdir:~/code/_work/"]
-    path = ~/code/_work/.gitconfig
+	path = ~/code/_work/.gitconfig
 	email = alexander.wink@dasistweb.de
 [pull]
     rebase = false
@@ -14,3 +14,9 @@
 	format = ssh
 [core]
 	autocrlf = input
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
