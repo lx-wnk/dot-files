@@ -1,18 +1,20 @@
 auto-update = check
+window-save-state = always
+notify-on-command-finish = unfocused
+
 shell-integration = zsh
 
 #theme = Dark Modern
-theme = Desert
+#theme = Desert
+#theme = Earthsong
+theme = Monokai Classic
+
+
 bold-is-bright = true
 
 split-divider-color = #1b5c3f
 background-opacity = 0.85
 background-blur=16
 
-
-
-notify-on-command-finish = unfocused
-
 macos-option-as-alt = left
-
-window-save-state = always
+keybind = option+backspace=text:\x17
