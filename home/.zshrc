@@ -19,6 +19,9 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:$HOME/.docker/cli-plugins"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 
+## Claude / tooling secrets (private, git-ignored; templates: dot-files/dist/claude-*.env.dist)
+## Per-account overrides live in <account>.env and are layered on by the claude-* wrappers.
+[ -f "$HOME/.config/claude/common.env" ] && source "$HOME/.config/claude/common.env"
 
 export PATH="$PATH:$(go env GOPATH)/bin"
 ## bun
