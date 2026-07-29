@@ -1,67 +1,73 @@
 #!/usr/bin/env bash
+# First-run bootstrap for a fresh Mac: install tooling, then hand the whole
+# symlink/config layout over to dotfiles-sync.sh.
+#
+# Everything idempotent lives in home/scripts/dotfiles-sync.sh — run that alone
+# to re-align an existing machine. This script only does the one-time installs.
+#
+# Must be run from the repo root.
+set -uo pipefail
 
-# install brew (needs password)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# update pip
-/usr/local/opt/python@3.9/bin/python3.9 -m pip install --upgrade pip
-curl -sS https://get.symfony.com/cli/installer | bash
-mv $HOME/.symfony/bin/symfony /usr/local/bin/
+cd "$(dirname "$0")"
 
-# package installation
-bash ./mac/init-brew.sh
-bash ./mac/init-npm.sh
-bash ./mac/init-pip.sh
-bash ./mac/init-custom-stuff.sh
+# No `set -e`: a bootstrap step that is already satisfied should not abort the
+# rest. step() makes the failure visible instead of swallowing it.
+FAILED=()
+step() {
+  local label="$1"; shift
+  echo ">> $label"
+  if ! "$@"; then
+    echo "!! failed: $label"
+    FAILED+=("$label")
+  fi
+}
 
-# create symlinks
-ln -sfn $(pwd)/home/* $HOME/
+install_brew() {
+  command -v brew >/dev/null && { echo "   already installed"; return 0; }
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
 
-## claude setup
-CLAUDE_ACCOUNTS=(personal work)
-for acct in "${CLAUDE_ACCOUNTS[@]}"; do
-  dir="$HOME/.claude-$acct"
-  mkdir -p "$dir"
-  # tracked and symlinked, so a repo edit reaches the account without re-seeding.
-  # Each account owns a full, standalone CLAUDE.md and settings.json — deliberately duplicated
-  # rather than shared, so there is no import or merge mechanism to reason about.
-  ln -sfn "$(pwd)/home/.claude-$acct/CLAUDE.md" "$dir/CLAUDE.md"
-  ln -sfn "$(pwd)/home/.claude-$acct/settings.json" "$dir/settings.json"
-  # skills are NOT managed here — they ship via the skills@lx_wnk-marketplace plugin (github.com/lx-wnk/skills)
-  # settings.local.json stays untracked: the private per-machine escape hatch
-done
-### default: ~/.claude -> personal
-ln -sfn "$HOME/.claude-personal" "$HOME/.claude"
-### secrets never live in a tracked file: shared baseline plus one optional file per account
-mkdir -p "$HOME/.config/claude"
-for env_file in common personal work; do
-  target="$HOME/.config/claude/$env_file.env"
-  [ -f "$target" ] && continue
-  case "$env_file" in
-    common) cp "$(pwd)/dist/claude-common.env.dist" "$target" ;;
-    *) cp "$(pwd)/dist/claude-account.env.dist" "$target" ;;
-  esac
-  chmod 600 "$target"
-  echo ">> Created $target from template — fill in real values!"
-done
+upgrade_pip() {
+  command -v python3 >/dev/null || { echo "   no python3 yet"; return 0; }
+  python3 -m pip install --upgrade pip 2>/dev/null \
+    || python3 -m pip install --upgrade --break-system-packages pip
+}
 
-## misc links
-ln -sfn $(pwd)/home/.vimrc $HOME/.vimrc
-ln -sfn $(pwd)/home/.p10k.zsh $HOME/.p10k.zsh
-ln -sfn $(pwd)/home/.zshrc $HOME/.zshrc
-ln -sfn $(pwd)/home/.git* $HOME/
+install_symfony_cli() {
+  command -v symfony >/dev/null && { echo "   already installed"; return 0; }
+  curl -sS https://get.symfony.com/cli/installer | bash || return 1
+  # The installer has used ~/.symfony and ~/.symfony5 over time — take whichever exists.
+  local bin
+  for bin in "$HOME/.symfony5/bin/symfony" "$HOME/.symfony/bin/symfony"; do
+    [ -x "$bin" ] || continue
+    if [ -w /usr/local/bin ]; then
+      ln -sfn "$bin" /usr/local/bin/symfony
+    else
+      sudo ln -sfn "$bin" /usr/local/bin/symfony
+    fi
+    return 0
+  done
+  echo "   installer produced no binary in ~/.symfony5/bin or ~/.symfony/bin"
+  return 1
+}
 
-mkdir -p $HOME/.config
-ln -sfn $(pwd)/home/.config/* $HOME/.config/
+step "Homebrew"      install_brew
+step "pip"           upgrade_pip
+step "Symfony CLI"   install_symfony_cli
 
+step "brew packages" bash ./mac/init-brew.sh
+step "npm packages"  bash ./mac/init-npm.sh
+step "pip packages"  bash ./mac/init-pip.sh
+step "custom stuff"  bash ./mac/init-custom-stuff.sh
 
-# create symlinks for .config
-mkdir -p $HOME/.config # make sure .config exists
-for src in $(pwd)/home/.config/*/; do
-  name=$(basename "$src")
-  rm -rf $HOME/.config/"$name"
-  ln -sfn "$src" $HOME/.config/"$name"
-done
+# Symlinks, Claude accounts, secret templates, base folders.
+step "dotfiles sync" bash ./home/scripts/dotfiles-sync.sh
 
-# init folders
-mkdir -p $HOME/code/_privat
-mkdir -p $HOME/code/_work
+echo
+if [ ${#FAILED[@]} -eq 0 ]; then
+  echo "bootstrap complete"
+else
+  echo "bootstrap finished with ${#FAILED[@]} failed step(s):"
+  printf '  - %s\n' "${FAILED[@]}"
+  echo "Re-run this script, or fix them individually. dotfiles-sync.sh is safe to re-run alone."
+fi
