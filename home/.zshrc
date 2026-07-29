@@ -1,7 +1,4 @@
-# @see: https://github.com/ghostty-org/ghostty/blob/main/src/shell-integration/zsh/ghostty-integration
-if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
-   source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
-fi
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -10,17 +7,27 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# @see: https://github.com/ghostty-org/ghostty/blob/main/src/shell-integration/zsh/ghostty-integration
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+   source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export PATH="$HOME/.symfony/bin:$PATH"
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-export PATH=/usr/local/bin/php:$PATH
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-export PATH="$HOME/Library/Python/3.9/bin/:$PATH"
 export PATH="$PATH:$HOME/scripts"
-export PATH="$PATH:$HOME/.docker/cli-plugins"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.docker/cli-plugins"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+
+export PATH="$PATH:$(go env GOPATH)/bin"
+## bun
+[ -s "/Users/alexanderwink/.bun/_bun" ] && source "/Users/alexanderwink/.bun/_bun"
+export PATH="$HOME/.bun/bin:$PATH"
+
+## Maestro E2E + JDK (Comeround mobile)
+export JAVA_HOME="/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$HOME/.maestro/bin:$PATH"
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -161,10 +168,15 @@ eval "$(thefuck --alias)"
 ## source
 source <(fzf --zsh)
 
-
 # additional source files
 source ~/shell.alias.sh
 source ~/remote-server-list.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/alexanderwink/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
