@@ -2,8 +2,8 @@
 
 source ~/.zshrc
 
-#echo 'Starting MacOS Software upgrade'
-#mas upgrade # app store updates # currently has some issues with xcode
+echo 'Starting MacOS Software upgrade'
+mas upgrade # app store updates
 
 echo 'upgrading oh-my-zsh'
 omz update
