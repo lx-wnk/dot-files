@@ -1,22 +1,23 @@
 [user]
 	name = Alexander Wink
-    email = git@jinnoflife.com
+	email = git@jinnoflife.com
 	signingkey = ~/.ssh/id_rsa.pub
+	initials = aw
 [includeIf "gitdir:~/code/_work/"]
 	path = ~/code/_work/.gitconfig
-	email = alexander.wink@dasistweb.de
 [pull]
     rebase = false
 [commit]
 	gpgsign = true
 [gpg]
-	program = /opt/homebrew/bin/gpg
 	format = ssh
 [core]
 	autocrlf = input
 [credential "https://github.com"]
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper =
+	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper =
+	helper = !gh auth git-credential
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
