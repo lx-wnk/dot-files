@@ -1,2 +1,17 @@
 /.idea
-/.DS_STORE
+**/.DS_STORE
+
+# Per-account Claude dirs hold plugin caches and session state.
+# Ignore their contents explicitly, then allow only the files that are symlinked back
+# into ~/.claude-<account>/ so repo edits reach the account directly.
+# Each account keeps a full standalone CLAUDE.md — duplicated on purpose, no shared base.
+# settings.json is tracked AND written by Claude Code at runtime. It must stay secret-free:
+# its `env` block does NOT expand $VAR and it OVERRIDES shell exports, so a credential there
+# would be both literal and wrong. Secrets live in ~/.config/claude/{common,<account>}.env,
+# outside the repo. settings.local.json stays untracked as the private per-machine escape hatch.
+/home/.claude-personal/*
+!/home/.claude-personal/CLAUDE.md
+!/home/.claude-personal/settings.json
+/home/.claude-work/*
+!/home/.claude-work/CLAUDE.md
+!/home/.claude-work/settings.json
