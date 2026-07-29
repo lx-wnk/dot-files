@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -uo pipefail
+cd "$(dirname "$0")/.."
 
-NPM_PACKAGES=$(cat mac/packages.npm.list)
-npm i -g $NPM_PACKAGES
+# shellcheck disable=SC2046
+npm i -g $(grep -vE '^\s*(#|$)' mac/packages.npm.list)
