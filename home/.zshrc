@@ -25,7 +25,7 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 
 export PATH="$PATH:$(go env GOPATH)/bin"
 ## bun
-[ -s "/Users/alexanderwink/.bun/_bun" ] && source "/Users/alexanderwink/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 export PATH="$HOME/.bun/bin:$PATH"
 
 ## Maestro E2E + JDK (Comeround mobile)
@@ -179,7 +179,7 @@ source ~/remote-server-list.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/alexanderwink/.docker/completions $fpath)
+fpath=($HOME/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
