@@ -110,6 +110,9 @@ for acct in personal work; do
   seed "$REPO/dist/claude-account.env.dist" "$HOME/.config/claude/$acct.env"
 done
 
+echo "Remote server aliases"
+seed "$REPO/dist/remote-server-list.sh" "$HOME/remote-server-list.sh"
+
 echo "base folders"
 ensure_dir "$HOME/code/_privat"
 ensure_dir "$HOME/code/_work"
