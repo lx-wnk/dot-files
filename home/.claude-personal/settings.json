@@ -52,7 +52,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -c '\nimport json, re, sys\ncmd = json.load(sys.stdin).get(\"tool_input\", {}).get(\"command\", \"\")\nflag = \"--delete\" + \"-branch\"\npat = re.compile(r\"(?<!\\S)(\" + re.escape(flag) + r\"|-d)(?!\\S)\")\nfor seg in re.split(r\"[;&|\\n]+\", cmd):\n    if \"gh pr merge\" in seg and pat.search(seg):\n        sys.stderr.write(\"BLOCKED: deleting the branch inside gh pr merge has already closed a PR unmerged. Merge first, verify with: gh pr view <n> --json state,mergedAt \u2014 then delete the branch as a separate step.\\n\")\n        sys.exit(2)\nsys.exit(0)\n' ",
+            "command": "python3 -c '\nimport json, re, sys\ncmd = json.load(sys.stdin).get(\"tool_input\", {}).get(\"command\", \"\")\nflag = \"--delete\" + \"-branch\"\npat = re.compile(r\"(?<!\\S)(\" + re.escape(flag) + r\"|-d)(?!\\S)\")\nfor seg in re.split(r\"[;&|\\n]+\", cmd):\n    if \"gh pr merge\" in seg and pat.search(seg):\n        sys.stderr.write(\"BLOCKED: deleting the branch inside gh pr merge has already closed a PR unmerged. Merge first, verify with: gh pr view <n> --json state,mergedAt — then delete the branch as a separate step.\\n\")\n        sys.exit(2)\nsys.exit(0)\n' ",
             "timeout": 10
           }
         ]
@@ -87,7 +87,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "git status --short 2>/dev/null; b=$(git branch --show-current 2>/dev/null); [ -z \"$b\" ] && exit 0; if git rev-parse --verify -q \"origin/$b\" >/dev/null 2>&1; then u=$(git log \"origin/$b..HEAD\" --oneline 2>/dev/null | head -5); [ -n \"$u\" ] && printf '%s\\n^ UNPUSHED COMMITS on %s \u2014 task is NOT DONE\\n' \"$u\" \"$b\"; else echo \"^ branch $b has no remote tracking ref \u2014 nothing was ever pushed\"; fi; exit 0",
+            "command": "git status --short 2>/dev/null; b=$(git branch --show-current 2>/dev/null); [ -z \"$b\" ] && exit 0; if git rev-parse --verify -q \"origin/$b\" >/dev/null 2>&1; then u=$(git log \"origin/$b..HEAD\" --oneline 2>/dev/null | head -5); [ -n \"$u\" ] && printf '%s\\n^ UNPUSHED COMMITS on %s — task is NOT DONE\\n' \"$u\" \"$b\"; else echo \"^ branch $b has no remote tracking ref — nothing was ever pushed\"; fi; exit 0",
             "timeout": 10
           }
         ]
@@ -108,7 +108,8 @@
     "gopls-lsp@claude-plugins-official": true,
     "atlassian@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": true,
+    "browser-use@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
