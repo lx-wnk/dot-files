@@ -53,7 +53,7 @@ ALWAYS state the planned agent count and the reason before spawning. From 5 agen
 - Never push directly to `main` (branch protection) — always a feature branch plus PR.
 - NEVER `gh pr merge --delete-branch`. It has already closed a PR unmerged. Merge first, delete the branch as a separate step after verifying the merge.
 - After every merge, paste `gh pr view <n> --json state,mergedAt` before reporting success.
-- `gh pr merge --admin` is blocked by the permission classifier — do not retry, hand the merge back to me.
+- `gh pr merge --squash --admin` only when I explicitly allow it for that PR or that session. Without that, hand the merge back to me. If it is refused, do not retry.
 - Before any merge series: show the merge plan (PR order, exact commands, expected blockers, verification command per merge) and wait for approval.
 
 ## MCP Fallbacks
