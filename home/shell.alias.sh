@@ -4,11 +4,11 @@
 # Add a variable to the account file only when personal and work need different values for it.
 claude-personal() (
   set -a; [ -f $HOME/.config/claude/personal.env ] && . $HOME/.config/claude/personal.env; set +a
-  exec $HOME/code/_privat/projects/agent-dashboard/bin/kontor live --permission-mode auto "$@"
+  exec $HOME/code/_privat/projects/kontor/bin/kontor live --permission-mode auto "$@"
 )
 claude-work() (
   set -a; [ -f $HOME/.config/claude/work.env ] && . $HOME/.config/claude/work.env; set +a
-  CLAUDE_CONFIG_DIR=$HOME/.claude-work exec $HOME/code/_privat/projects/agent-dashboard/bin/kontor live --permission-mode auto "$@"
+  CLAUDE_CONFIG_DIR=$HOME/.claude-work exec $HOME/code/_privat/projects/kontor/bin/kontor live --permission-mode auto "$@"
 )
 
 

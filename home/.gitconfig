@@ -1,7 +1,7 @@
 [user]
 	name = Alexander Wink
 	email = git@jinnoflife.com
-	signingkey = ~/.ssh/id_rsa.pub
+	signingkey = ~/.ssh/id_ed25519_signing
 	initials = aw
 [includeIf "gitdir:~/code/_work/"]
 	path = ~/code/_work/.gitconfig
@@ -21,3 +21,8 @@
 	helper = !gh auth git-credential
 [gpg "ssh"]
 	allowedSignersFile = ~/.ssh/allowed_signers
+[tag]
+	gpgsign = true
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+	insteadOf = ssh://git@github.com/

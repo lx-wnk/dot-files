@@ -1,7 +1,8 @@
 {
   "env": {
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "128000",
-    "BASH_DEFAULT_TIMEOUT_MS": "30000"
+    "BASH_DEFAULT_TIMEOUT_MS": "30000",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
     "allow": [
@@ -36,6 +37,7 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -43,7 +45,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); if [ \"$BRANCH\" = 'main' ] || [ \"$BRANCH\" = 'master' ]; then echo '{\"decision\": \"block\", \"reason\": \"Cannot edit files on main branch. Create a feature branch first.\"}'; fi"
+            "command": "python3 ~/.claude/hooks/guard-main-branch.py"
           }
         ]
       },
@@ -109,7 +111,11 @@
     "atlassian@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "browser-use@claude-plugins-official": true
+    "browser-use@claude-plugins-official": true,
+    "ponytail@ponytail": true,
+    "i-have-adhd@i-have-adhd": true,
+    "swift-lsp@claude-plugins-official": true,
+    "ponytail@claude-community": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -129,19 +135,60 @@
         "source": "github",
         "repo": "anthropics/claude-plugins-official"
       }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
+      }
     }
   },
   "outputStyle": "Explanatory",
+  "feedbackDrafts": "notify",
+  "syntaxHighlightingDisabled": false,
   "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
+  "askUserQuestionTimeout": "never",
+  "dialogExpiry": "5m",
+  "pluginConfigs": {
+    "cc-plugin-agents-md@builtin": {
+      "options": {
+        "instructionFiles": "claude-md-or-agents-md"
+      }
+    }
+  },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
-  "theme": "dark-ansi",
+  "theme": "dark",
   "editorMode": "normal",
-  "autoCompactEnabled": false,
+  "autoCompactEnabled": true,
+  "teammateMode": "auto",
   "remoteControlAtStartup": true,
+  "crossSessionInbound": "accept",
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(gh pr merge:*) with --admin or --delete-branch — keep merges as an explicit two-step: merge, verify with gh pr view, then delete the branch",
+      "Bash(rm:*) inside git worktree directories — scope destructive deletes to review"
+    ],
+    "environment": [
+      "**Primary use of Claude Code**: software development on personal projects",
+      "**Repository visibility**: check with gh; personal repos under github.com/lx-wnk are often PUBLIC, so nothing confidential may be committed there",
+      "**Default / protected branches**: main is protected; never push directly to it",
+      "**Source control**: the current repo and its origin remote only",
+      "**Internal sharing / snippet hosting**: none — treat public paste/gist services as outside the trust boundary",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, credentials or confidential business data; ~/.config/claude/*.env holds secrets and is never printed or committed",
+      "**Sensitive remote targets**: any namespace, host or container whose name carries `prod` or `production` as a whole word or name segment"
+    ]
+  }
 }
