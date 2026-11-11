@@ -50,6 +50,12 @@ brew install --cask docker
 #screen recording software
 brew install --cask kap
 
+# note taking
+brew install --cask obsidian
+
+# terminal emulator
+brew install --cask ghostty
+
 # browser
 ## arc browser
 brew install --cask arc

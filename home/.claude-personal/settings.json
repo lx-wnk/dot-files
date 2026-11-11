@@ -1,0 +1,214 @@
+{
+  "env": {
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "128000",
+    "BASH_DEFAULT_TIMEOUT_MS": "30000",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "mcp__jetbrains__find_files_by_name_keyword",
+      "mcp__jetbrains__list_directory_tree",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "WebSearch",
+      "WebFetch(domain:developer.shopware.com)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(npx nuxi typecheck:*)",
+      "Bash(make jest:*)",
+      "WebFetch(domain:developers.google.com)",
+      "WebFetch(domain:docs.sentry.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(docker exec:*)",
+      "Bash(find:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(ls:*)",
+      "Bash(curl:*)",
+      "Bash(tar:*)",
+      "Bash(mktemp:*)",
+      "Bash(cp:*)",
+      "Read(~/code/)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./config/credentials.json)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c '\nimport json, re, sys\ncmd = json.load(sys.stdin).get(\"tool_input\", {}).get(\"command\", \"\")\nflag = \"--delete\" + \"-branch\"\npat = re.compile(r\"(?<!\\S)(\" + re.escape(flag) + r\"|-d)(?!\\S)\")\nfor seg in re.split(r\"[;&|\\n]+\", cmd):\n    if \"gh pr merge\" in seg and pat.search(seg):\n        sys.stderr.write(\"BLOCKED: deleting the branch inside gh pr merge has already closed a PR unmerged. Merge first, verify with: gh pr view <n> --json state,mergedAt — then delete the branch as a separate step.\\n\")\n        sys.exit(2)\nsys.exit(0)\n' ",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/guard-secrets-bash.sh",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/guard-main-branch.sh",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$HOME/.claude/hooks/caveman-activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading caveman mode..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$HOME/.claude/hooks/caveman-mode-tracker.js\"",
+            "timeout": 5,
+            "statusMessage": "Tracking caveman mode..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git status --short 2>/dev/null; b=$(git branch --show-current 2>/dev/null); [ -z \"$b\" ] && exit 0; if git rev-parse --verify -q \"origin/$b\" >/dev/null 2>&1; then u=$(git log \"origin/$b..HEAD\" --oneline 2>/dev/null | head -5); [ -n \"$u\" ] && printf '%s\\n^ UNPUSHED COMMITS on %s — task is NOT DONE\\n' \"$u\" \"$b\"; else echo \"^ branch $b has no remote tracking ref — nothing was ever pushed\"; fi; exit 0",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/stop-uncommitted.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  },
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/hooks/caveman-statusline.sh\""
+  },
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "agents@lx_wnk-marketplace": true,
+    "skills@lx_wnk-marketplace": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "atlassian@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "browser-use@claude-plugins-official": true,
+    "ponytail@ponytail": true,
+    "i-have-adhd@i-have-adhd": true,
+    "swift-lsp@claude-plugins-official": true,
+    "ponytail@claude-community": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/JuliusBrussee/caveman.git"
+      }
+    },
+    "lx_wnk-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "lx-wnk/claude-marketplace"
+      }
+    },
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
+      }
+    }
+  },
+  "outputStyle": "Explanatory",
+  "feedbackDrafts": "notify",
+  "syntaxHighlightingDisabled": false,
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "askUserQuestionTimeout": "never",
+  "dialogExpiry": "5m",
+  "pluginConfigs": {
+    "cc-plugin-agents-md@builtin": {
+      "options": {
+        "instructionFiles": "claude-md-or-agents-md"
+      }
+    }
+  },
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
+  "editorMode": "normal",
+  "autoCompactEnabled": true,
+  "teammateMode": "auto",
+  "remoteControlAtStartup": true,
+  "crossSessionInbound": "accept",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(gh pr merge:*) with --admin or --delete-branch — keep merges as an explicit two-step: merge, verify with gh pr view, then delete the branch",
+      "Bash(rm:*) inside git worktree directories — scope destructive deletes to review"
+    ],
+    "environment": [
+      "**Primary use of Claude Code**: software development on personal projects",
+      "**Repository visibility**: check with gh; personal repos under github.com/lx-wnk are often PUBLIC, so nothing confidential may be committed there",
+      "**Default / protected branches**: main is protected; never push directly to it",
+      "**Source control**: the current repo and its origin remote only",
+      "**Internal sharing / snippet hosting**: none — treat public paste/gist services as outside the trust boundary",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, credentials or confidential business data; ~/.config/claude/*.env holds secrets and is never printed or committed",
+      "**Sensitive remote targets**: any namespace, host or container whose name carries `prod` or `production` as a whole word or name segment"
+    ]
+  }
+}

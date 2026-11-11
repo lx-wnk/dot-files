@@ -11,7 +11,6 @@ gitlab-runner
 fswatch
 dnsmasq
 pyenv
-docker
 gource
 thefuck
 mas

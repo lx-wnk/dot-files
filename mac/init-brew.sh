@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
+# Install the brew formulae and casks listed in mac/brew/.
+set -uo pipefail
+cd "$(dirname "$0")/.."
 
-BREW_PACKAGES=$(cat $(pwd)/mac/brew/packages.brew.list)
+# homebrew/cask-versions was deprecated and removed by Homebrew; versioned casks
+# now live in homebrew/cask. Nothing to tap.
 
-#taps
-brew tap homebrew/cask-versions
-
-# install main packages
-brew install $BREW_PACKAGES
+# shellcheck disable=SC2046
+brew install $(grep -vE '^\s*(#|$)' mac/brew/packages.brew.list)
 brew link --force libpq
-bash $(pwd)/mac/brew/brew-casks.sh
+bash ./mac/brew/brew-casks.sh

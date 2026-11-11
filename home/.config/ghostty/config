@@ -1,0 +1,27 @@
+auto-update = check
+window-save-state = always
+notify-on-command-finish = unfocused
+
+shell-integration = zsh
+
+#theme = Dark Modern
+#theme = Desert
+#theme = Earthsong
+theme = Monokai Classic
+palette = 8=#4a4a4a
+
+
+bold-is-bright = true
+
+split-divider-color = #1b5c3f
+#background-opacity = 1
+background-opacity = 0.97
+alpha-blending = linear-corrected
+background-blur = 16
+
+# WCAG 2.0 contrast floor per cell — lifts foreground colors that sit too close
+# to the background (e.g. Monokai comments at rgb(117,113,94) on #272822).
+minimum-contrast = 3
+
+macos-option-as-alt = left
+keybind = option+backspace=text:\x17

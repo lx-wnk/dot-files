@@ -1,3 +1,17 @@
+# claude / agent stuff
+# Secrets: ~/.config/claude/common.env is loaded for every shell by .zshrc.
+# These wrappers layer <account>.env on top in a subshell, so nothing leaks back into the shell.
+# Add a variable to the account file only when personal and work need different values for it.
+claude-personal() (
+  set -a; [ -f $HOME/.config/claude/personal.env ] && . $HOME/.config/claude/personal.env; set +a
+  exec $HOME/code/_privat/projects/kontor/bin/kontor live --permission-mode auto "$@"
+)
+claude-work() (
+  set -a; [ -f $HOME/.config/claude/work.env ] && . $HOME/.config/claude/work.env; set +a
+  CLAUDE_CONFIG_DIR=$HOME/.claude-work exec $HOME/code/_privat/projects/kontor/bin/kontor live --permission-mode auto "$@"
+)
+
+
 #python version
 alias python="python3"
 alias pip="pip3"
@@ -26,15 +40,6 @@ alias gbdm='git branch --merged | egrep -v "(^\*|master|staging|develop|main|tru
 ## visual representation of a git repository
 alias gourceNicer="gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 2 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling --max-user-speed 100 --file-extensions --highlight-users --dir-colour cccccc"
 
-# environment fixes
-#alias gem=/usr/local/opt/ruby/bin/gem
-#alias ruby=/usr/local/opt/ruby/bin/ruby
-#export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
-
-# composer
-alias composer="php /usr/local/bin/composer"
-export COMPOSER_HOME=$HOME/.composer
-
 #etc
 alias brave="open -na /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
 alias portListen="netstat -ap tcp | grep -i 'listen'"
@@ -44,10 +49,14 @@ alias portListen="netstat -ap tcp | grep -i 'listen'"
 # ask for priv-key password every 6h
 alias rememberMe='ssh-add -t 6h'
 alias currentDockerForceRestart='docker kill $(docker ps -aq) && docker-compose up -d'
+alias ssh='TERM=xterm-256color ssh'
+
 
 # little helper
-alias generateUuid="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '-'"
+alias generateUuidV4="uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '-'"
+alias generateUuid="generateUuidV4"
 alias unixTimeStamp="date +%s"
+
 toLower() {
     echo "$@" | tr '[:upper:]' '[:lower:]'
 }

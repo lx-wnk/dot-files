@@ -1,0 +1,1 @@
+/loop erledige alle Todos, via Spec- und Plan-Driven development, erstelle nach jedem Durchlauf ein /session-handoff für den nächsten step (clear des aktuellen Context -> einlesen des Handoff -> Start des nächsten Themas) /goal bis alle dokumentierten/bekannten todos erledigt sind
