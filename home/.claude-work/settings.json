@@ -72,6 +72,15 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/stop-uncommitted.sh",
+            "timeout": 15
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -84,6 +93,26 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/guard-secrets-bash.sh",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/guard-main-branch.sh",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit"
       }
     ]
   },

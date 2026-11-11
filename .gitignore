@@ -4,11 +4,13 @@
 # Per-account Claude dirs hold plugin caches and session state.
 # Ignore their contents explicitly, then allow only the files that are symlinked back
 # into ~/.claude-<account>/ so repo edits reach the account directly.
-# Each account keeps a full standalone CLAUDE.md — duplicated on purpose, no shared base.
+# Each account CLAUDE.md is a thin profile that imports the shared rules from
+# home/.config/claude-shared/core.md (linked to ~/.config/claude-shared by the XDG loop).
 # settings.json is tracked AND written by Claude Code at runtime. It must stay secret-free:
 # its `env` block does NOT expand $VAR and it OVERRIDES shell exports, so a credential there
 # would be both literal and wrong. Secrets live in ~/.config/claude/{common,<account>}.env,
-# outside the repo. settings.local.json stays untracked as the private per-machine escape hatch.
+# outside the repo. Claude Code reads no user-level settings.local.json, and autoMode is read
+# only from settings.json, so autoMode entries stay generic: no customer, repo or host names.
 /home/.claude-*/*
 !/home/.claude-*/CLAUDE.md
 !/home/.claude-*/settings.json

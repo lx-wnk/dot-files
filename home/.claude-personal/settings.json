@@ -41,15 +41,6 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 ~/.claude/hooks/guard-main-branch.py"
-          }
-        ]
-      },
-      {
         "matcher": "Bash",
         "hooks": [
           {
@@ -58,6 +49,26 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/guard-secrets-bash.sh",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/guard-main-branch.sh",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit"
       }
     ],
     "SessionStart": [
@@ -91,6 +102,15 @@
             "type": "command",
             "command": "git status --short 2>/dev/null; b=$(git branch --show-current 2>/dev/null); [ -z \"$b\" ] && exit 0; if git rev-parse --verify -q \"origin/$b\" >/dev/null 2>&1; then u=$(git log \"origin/$b..HEAD\" --oneline 2>/dev/null | head -5); [ -n \"$u\" ] && printf '%s\\n^ UNPUSHED COMMITS on %s — task is NOT DONE\\n' \"$u\" \"$b\"; else echo \"^ branch $b has no remote tracking ref — nothing was ever pushed\"; fi; exit 0",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.config/claude-shared/hooks/stop-uncommitted.sh",
+            "timeout": 15
           }
         ]
       }
