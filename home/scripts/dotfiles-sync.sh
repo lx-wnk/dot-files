@@ -113,6 +113,13 @@ done
 echo "Remote server aliases"
 seed "$REPO/dist/remote-server-list.sh" "$HOME/remote-server-list.sh"
 
+echo "Push leak guard"
+seed "$REPO/dist/push-denylist.txt.dist" "$HOME/.config/claude/push-denylist.txt"
+if [ "$(git -C "$REPO" config --get core.hooksPath || true)" != ".githooks" ]; then
+  act "set core.hooksPath=.githooks in $REPO"
+  [ "$DRY_RUN" -eq 1 ] || git -C "$REPO" config core.hooksPath .githooks
+fi
+
 echo "base folders"
 ensure_dir "$HOME/code/_privat"
 ensure_dir "$HOME/code/_work"
