@@ -1,0 +1,5 @@
+# Extended regular expressions, one per line, matched case-insensitively against
+# every line and commit message that a push to a dot-files remote adds.
+# Seeded to ~/.config/claude/push-denylist.txt by dotfiles-sync.sh. Keep real
+# customer, repo and host names only in that private copy, never in this template.
+/Users/[A-Za-z0-9._-]+/

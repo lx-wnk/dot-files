@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Block a push when an outgoing commit adds a line or message that matches the
+# private denylist. The list lives outside this public repo.
+set -uo pipefail
+
+denylist=${PUSH_DENYLIST:-$HOME/.config/claude/push-denylist.txt}
+if [ ! -f "$denylist" ]; then
+  echo "pre-push: $denylist is missing. Run home/scripts/dotfiles-sync.sh to seed it." >&2
+  exit 1
+fi
+
+patterns=$(grep -Ev '^[[:space:]]*(#|$)' "$denylist" || true)
+[ -n "$patterns" ] || exit 0
+
+remote=$1
+hits=""
+while read -r _ local_sha _ _; do
+  case "$local_sha" in *[!0]*) ;; *) continue ;; esac
+  found=$(
+    {
+      git log --format=%B "$local_sha" --not --remotes="$remote"
+      git log -p --format= "$local_sha" --not --remotes="$remote" | grep '^+'
+    } | grep -inEf <(printf '%s\n' "$patterns") || true
+  )
+  hits="$hits$found"
+done
+
+[ -z "$hits" ] && exit 0
+echo "pre-push: outgoing commits match $denylist:" >&2
+printf '%s\n' "$hits" | cut -c1-160 >&2
+echo "Remove the data from the commits, or push with --no-verify if the match is a false positive." >&2
+exit 1
