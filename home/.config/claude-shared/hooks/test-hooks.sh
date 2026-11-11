@@ -46,6 +46,16 @@ secrets 2 "source .env" 'source .env && make'
 secrets 2 "multi-line cat .env" 'cd app
 cat ".env"'
 secrets 0 "word environment" 'echo environment ready'
+secrets 0 "heredoc mentioning .env, grep elsewhere" 'cat > notes.json <<EOF
+never read .env files
+EOF
+grep -c x notes.json'
+secrets 0 "echo text mentioning .env piped to grep" 'echo "see .env docs" | grep docs'
+secrets 2 "command substitution" 'echo $(cat .env)'
+secrets 2 "sudo cat .env" 'sudo cat .env'
+secrets 2 "assignment prefix" 'LC_ALL=C cat app/.env'
+secrets 2 "dot-source .env" '. ./.env'
+secrets 2 "reader after pipe" 'ls | grep KEY .env.local'
 
 R=$(mktemp -d)
 trap 'rm -rf "$R"' EXIT

@@ -30,21 +30,35 @@ if printf '%s\n' "$stripped" | grep -Eq '(^|[;&|(]|[[:space:]])(echo|printf)[[:s
 fi
 
 # 3. A reader command applied to a .env file. Template files pass.
-readers='cat|less|more|head|tail|bat|nl|grep|rg|awk|sed|strings|xxd|source'
-if printf '%s\n' "$cmd" | grep -Eq "(^|[;&|(]|[[:space:]])(($readers)|\\.)[[:space:]]"; then
-  while IFS= read -r word; do
+#    Only a .env word in the reader's own segment counts; a mere mention in text passes.
+reads_env() { # one command segment
+  local word first=1 reader=0 base
+  for word in $(printf '%s\n' "$1" | tr -s "[:space:]<>\"'" ' '); do
+    if [ "$first" -eq 1 ]; then
+      case "$word" in
+        sudo | command | exec | time | *=*) continue ;;
+        cat | less | more | head | tail | bat | nl | grep | rg | awk | sed | strings | xxd | source | .) reader=1 ;;
+      esac
+      first=0
+      [ "$reader" -eq 1 ] || return 1
+      continue
+    fi
     base=${word##*/}
     case "$base" in
-      .env | .env.*) ;;
-      *) continue ;;
-    esac
-    case "$base" in
       *.example | *.dist | *.sample | *.template) continue ;;
+      .env | .env.*) echo "$base"; return 0 ;;
     esac
-    block "The command reads $base."
-  done <<WORDS
-$(printf '%s\n' "$cmd" | tr -s "[:space:];&|()<>=\"'" '\n')
-WORDS
-fi
+  done
+  return 1
+}
+
+set -f
+while IFS= read -r segment; do
+  if file=$(reads_env "$segment"); then
+    block "The command reads $file."
+  fi
+done <<SEGMENTS
+$(printf '%s\n' "$cmd" | tr ';&|()`' '\n')
+SEGMENTS
 
 exit 0
