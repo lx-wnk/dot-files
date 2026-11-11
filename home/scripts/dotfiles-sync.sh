@@ -39,7 +39,10 @@ CHANGED=0
 STAMP="$(date +%Y%m%d-%H%M%S)"
 
 say() { printf '  %s\n' "$*"; }
-act() { CHANGED=$((CHANGED + 1)); [ "$DRY_RUN" -eq 1 ] && say "would $*" || say "$*"; }
+act() {
+  CHANGED=$((CHANGED + 1))
+  if [ "$DRY_RUN" -eq 1 ]; then say "would $*"; else say "$*"; fi
+}
 
 # Point $2 at $1. Idempotent: an already-correct link is left alone. A real file
 # or directory in the way is moved aside rather than clobbered — that path is how
