@@ -32,7 +32,6 @@ alias dockerKillContainers="docker kill $(docker ps -aq)"
 alias dockerStopAll="docker-stop-all.sh"
 
 # git @see: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-alias gpd="git push dasistweb"
 alias gpo="git push origin"
 alias gcm="git checkout main"
 ## delete all merged branches
